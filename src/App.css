@@ -1,0 +1,73 @@
+body {
+  background-color: #f0f0f0;
+}
+
+html {
+  font-family: "Urbaniest", sans-serif;
+}
+
+/* Main Section Styles */
+.section-post {
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+}
+
+/* List container */
+.section-post ol {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  width: 80%;
+}
+
+/* Card Styles */
+.section-post li {
+  background-color: #ffffff;
+  border: 1px solid #913f3f;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: calc(50% - 10px);
+  box-sizing: border-box;
+  transition: transform 0.2s ease;
+}
+
+/* Card Hover Effect */
+.section-post li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Text inside the card */
+.section-post li p {
+  margin: 15px 0;
+  color: #333;
+}
+
+/* Button Styles */
+.section-post li button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.2s ease;
+}
+
+/* Button Hover Effect */
+.section-post li button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .section-post li {
+    width: 100%;
+  }
+}
