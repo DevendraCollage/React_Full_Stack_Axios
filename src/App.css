@@ -57,6 +57,7 @@ html {
   border-radius: 5px;
   cursor: pointer;
   margin-right: 10px;
+  margin-bottom: 10px;
   transition: background-color 0.2s ease;
 }
 
