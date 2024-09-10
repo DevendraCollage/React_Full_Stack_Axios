@@ -1,13 +1,22 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../index.css";
 import { postData } from "../API/PostAPI";
 
-const Form = ({ post, setPost }) => {
+const Form = ({ post, setPost, updateDataApi, setUpdateDataApi }) => {
   const [AddData, setAddData] = useState({
     title: "",
     body: "",
   });
+
+  // get the updated data and add into input field
+  useEffect(() => {
+    updateDataApi &&
+      setAddData({
+        title: updateDataApi.title || "",
+        body: updateDataApi.body || "",
+      });
+  }, [updateDataApi]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -31,6 +40,13 @@ const Form = ({ post, setPost }) => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     addPostData();
+  };
+
+  const handleButtonClear = () => {
+    setAddData({
+      title: "",
+      body: "",
+    });
   };
 
   return (
@@ -60,6 +76,13 @@ const Form = ({ post, setPost }) => {
         />
       </div>
       <button type="submit">Add</button>
+      <button
+        style={{ marginTop: "10px" }}
+        type="submit"
+        onClick={handleButtonClear}
+      >
+        Clear
+      </button>
     </form>
   );
 };
