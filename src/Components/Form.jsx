@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import "../index.css";
-import { postData } from "../API/PostAPI";
+import { postData, updateData } from "../API/PostAPI";
 
 const Form = ({ post, setPost, updateDataApi, setUpdateDataApi }) => {
   const [AddData, setAddData] = useState({
     title: "",
     body: "",
   });
+
+  let isEmpty = Object.keys(updateDataApi).length === 0;
 
   // get the updated data and add into input field
   useEffect(() => {
@@ -37,17 +39,43 @@ const Form = ({ post, setPost, updateDataApi, setUpdateDataApi }) => {
     }
   };
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    addPostData();
+  const updatePostData = async () => {
+    try {
+      const res = await updateData(updateDataApi.id, AddData);
+      console.log(res);
+
+      if (res.status === 200) {
+        setPost((prev) => {
+          return prev.map((curElem) => {
+            return curElem.id === res.data.id ? res.data : curElem;
+          });
+        });
+
+        setAddData({ title: "", body: "" });
+        setUpdateDataApi({});
+      }
+    } catch ({ error }) {
+      console.log(error);
+    }
   };
 
-  const handleButtonClear = () => {
-    setAddData({
-      title: "",
-      body: "",
-    });
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const action = e.nativeEvent.submitter.value;
+
+    if (action === "Add") {
+      addPostData();
+    } else if (action === "Edit") {
+      updatePostData();
+    }
   };
+
+  // const handleButtonClear = () => {
+  //   setAddData({
+  //     title: "",
+  //     body: "",
+  //   });
+  // };
 
   return (
     <form onSubmit={handleFormSubmit}>
@@ -75,14 +103,16 @@ const Form = ({ post, setPost, updateDataApi, setUpdateDataApi }) => {
           onChange={handleInputChange}
         />
       </div>
-      <button type="submit">Add</button>
-      <button
+      <button type="submit" value={isEmpty ? "Add" : "Edit"}>
+        {isEmpty ? "Add" : "Edit"}
+      </button>
+      {/* <button
         style={{ marginTop: "10px" }}
         type="submit"
         onClick={handleButtonClear}
       >
         Clear
-      </button>
+      </button> */}
     </form>
   );
 };

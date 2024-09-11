@@ -23,3 +23,8 @@ export const postData = async (data) => {
     throw error;
   }
 };
+
+// Put Method
+export const updateData = (id, post) => {
+  return api.put(`/posts/${id}`, post);
+};
